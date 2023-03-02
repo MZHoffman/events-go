@@ -7,6 +7,7 @@ import EventDetailPage from './pages/EventDetailPage'
 import EventsPage from './pages/EventsPage'
 import NewEventPage from './pages/NewEventPage'
 import ErrorPage from './pages/ErrorPage'
+import EventsRootLayout from './pages/EventsRootLayout'
 
 const router = createBrowserRouter([
   {
@@ -15,10 +16,16 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: '', element: <HomePage /> },
-      { path: 'events', element: <EventsPage /> },
-      { path: 'events/:eventId', element: <EventDetailPage /> },
-      { path: 'events/:eventId/edit', element: <EditEventPage /> },
-      { path: 'new-event', element: <NewEventPage /> },
+      {
+        path: 'events',
+        element: <EventsRootLayout />,
+        children: [
+          { path: '', element: <EventsPage /> },
+          { path: ':eventId', element: <EventDetailPage /> },
+          { path: ':eventId/edit', element: <EditEventPage /> },
+          { path: 'new', element: <NewEventPage /> },
+        ],
+      },
     ],
   },
 ])
