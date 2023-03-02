@@ -4,7 +4,7 @@ import RootLayout from './pages/RootLayout'
 import HomePage from './pages/HomePage'
 import EditEventPage from './pages/EditEventPage'
 import EventDetailPage from './pages/EventDetailPage'
-import EventsPage from './pages/EventsPage'
+import EventsPage, { eventsLoader } from './pages/EventsPage'
 import NewEventPage from './pages/NewEventPage'
 import ErrorPage from './pages/ErrorPage'
 import EventsRootLayout from './pages/EventsRootLayout'
@@ -23,14 +23,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <EventsPage />,
-            loader: async () => {
-              const response = await fetch('http://localhost:8080/events')
-              if (!response.ok) {
-              } else {
-                const resData = await response.json()
-                return resData.events
-              }
-            },
+            loader: eventsLoader,
           },
           { path: ':eventId', element: <EventDetailPage /> },
           { path: ':eventId/edit', element: <EditEventPage /> },
