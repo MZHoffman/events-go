@@ -23,8 +23,11 @@ export const newEventAction = async ({ request, params }) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(eventData),
   })
+  if (response.status === 422) {
+    return response
+  }
   if (!response.ok) {
-    throw json({ message: 'Coulnd not save event.' }, { staus: 500 })
+    throw json({ message: 'Coulnd not save event.' }, { status: 500 })
   }
   return redirect('/events')
 }
